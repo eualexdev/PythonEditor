@@ -8,7 +8,6 @@
 
 <br>
 
-<!-- ### Acompanhe aqui as tarefas:
+### Blibliotecas E FramerWorks que Serão Usados
 
-## [!] - Fazer a Estrura de Pastas 
-## [x] - Fazer os -->
+* PyQt5
