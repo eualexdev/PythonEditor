@@ -1,13 +1,22 @@
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from loads import ExecuteFunctionsOfTime
+
 from src.splashscreen import SplashScreen
-from PyQt5.QtWidgets import QApplication
+from src.projects import UiProjects
 
 
 def Main() -> None :
     App = QApplication([])
     SplashUi = SplashScreen()
-    # ExecuteFunctionsOfTime(SplashUi.close)
+    ProjectsUi = UiProjects()
+
+    ExecuteFunctionsOfTime(
+        ProjectsUi.show,
+        SplashUi.close
+    )
+    
     SplashUi.show()
     App.exec()
+
 if __name__ == "__main__":
     Main()

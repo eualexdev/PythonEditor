@@ -1,7 +1,6 @@
-from PyQt5 import QtCore
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel, QMainWindow,QFrame, QPushButton,QApplication
-from PyQt5.QtCore import QPoint, Qt
+from PyQt5.QtWidgets import QLabel, QMainWindow,QFrame, QProgressBar, QPushButton,QApplication
+from PyQt5.QtCore import QPoint, Qt,QTimer
 import os,json,sys,pyautogui
 
 from src.configs.types import *
@@ -15,21 +14,22 @@ class SplashScreen(QMainWindow):
             os.mkdir("./Public/Editor")
             os.mkdir("./Public/Editor/Themes")
             os.mkdir("./Public/Editor/assets")
+            os.mkdir("./Public/Editor/language")
             os.mkdir("./Public/data")
             os.mkdir("./Public/json")
 
         except FileExistsError:
             print("not paths created")
 
-        self.whatBall = 1
+        Files.isPrymaryExecutation(self.CreateFiles)
+
         self.jsonConfigs = json.loads(Files.Read(Package.jsonLocal+"/configs.json"))
 
-        Files.isPrymaryExecutation(self.CreateFiles)
 
         self.Frames()
         self.Buttons()
         self.Labels()
-        self.FramesBalls()
+        self.progressBar()
         self.setConfigs() # Configurações da SplashScreen
 
         self.configuresStyles()
@@ -37,71 +37,66 @@ class SplashScreen(QMainWindow):
     
     def CreateFiles(self):
         Files.Write(Package.jsonLocal+"/configs.json",json.dumps(Data.jsonConfigs,indent=4))
+        Files.Write(Package.editorThemeLocal+"/light.json",json.dumps(Data.jsonThemeLight,indent=4))
+        Files.Write(Package.editorThemeLocal+"/dark.json",json.dumps(Data.jsonThemeDark,indent=4))
 
     def Frames(self) -> void:
         self._frame = QFrame(self)
         self._frame2 = QFrame(self)
 
-    def FramesBalls(self):
-        self._ball_1 = QFrame(self._frame2)
-        self._ball_2 = QFrame(self._frame2)
-        self._ball_3 = QFrame(self._frame2)
-
-        self._ball_1.setGeometry(5,10,10,10)
-        self._ball_2.setGeometry(20,10,10,10)
-        self._ball_3.setGeometry(35,10,10,10)
-
-        self._ball_1.close()
-        self._ball_2.close()
-        self._ball_3.close()
-
-
-        self.timer = QtCore.QTimer()
-        self.timer.timeout.connect(self.BallAnimated)
-        delay = self.jsonConfigs["animationDelay"]
-        self.timer.setInterval(delay)
-        self.timer.start()
-
-    def BallAnimated(self):
-        if (self.whatBall == 1):
-            self._ball_1.show()
-            self.whatBall += 1
-
-        elif (self.whatBall == 2):
-            self._ball_2.show()
-            self.whatBall += 1
-
-        elif (self.whatBall == 3):
-            self._ball_3.show()
-            self.whatBall += 1
-        
-        elif (self.whatBall == 4):
-            self._ball_3.close()
-            self.whatBall += 1
-
-        elif (self.whatBall == 5):
-            self._ball_2.close()
-            self.whatBall += 1
-        
-        elif (self.whatBall == 6):
-            self._ball_1.close()
-            self.whatBall = 1
-
+    
     def Labels(self):
         font = QFont()
-        font.setPointSize(30)
+        font.setPointSize(40)
         font.setFamily("Segoe Print")
         font.setBold(True)
 
         self._label = QLabel(self._frame)
-        self._label.setText("Python Editor")    
+        self._label.setText("Elegant Ide")    
         self._label.setFont(font)
-        self._label.setAlignment(QtCore.Qt.AlignCenter)
-        self._label.setGeometry(1,80,398,40)
+        self._label.setAlignment(Qt.AlignCenter)
+        self._label.setGeometry(1,70,398,80)
         self._label.setStyleSheet("color:#fff")
+
+        font.setFamily("Nirmala UI")
+        font.setPointSize(8)
+        self._label_2 = QLabel(self._frame)
+        self._label_2.setText("V"+self.jsonConfigs["version"])
+        self._label_2.setFont(font)
+        self._label_2.setGeometry(5,220,130,30)
+
+        font3 = QFont()
+        font3.setFamily("Nirmala UI")
+        font3.setPointSize(8)
+        font3.setBold(True)
+
+        self._label_3 = QLabel(self)
+        self._label_3.setFont(font3)
+        self._label_3.setGeometry(370,225,30,20)
 
     def Buttons(self) -> void:
         self._closeButton = QPushButton(self._frame2)
+        
+    def progressBar(self):
+        self.v = 0
+        font = QFont()
+        font.setPointSize(1)
+        self._progress = QProgressBar(self)
+        self._progress.setGeometry(0,245,400,5)
+        self._progress.setFont(font)
+        self._progress.setValue(self.v)
+        self.timer2 = QTimer()
+        self.timer2.timeout.connect(self.updateProgressBar)
+        self.timer2.setInterval(40)
+        self.timer2.start()
+
+    def updateProgressBar(self):
+        self._label_3.setText(str(self.v)+"%")
+        if (self.v != 100):
+            self.v += 1
+            print(self.v)
+        else:pass
+        self._progress.setValue(self.v)
 
     def setConfigs(self) -> void:
         # Configurações Da Tela # 
@@ -140,7 +135,7 @@ class SplashScreen(QMainWindow):
  
         self._frame.setStyleSheet(f"""
 background-color:{splashColor["firstColor"]};
-border:1px solid {splashColor["secondColor"]};        
+/*border:1px solid {splashColor["secondColor"]}; */       
 """)   
 
         self._frame2.setStyleSheet(f"""
@@ -157,9 +152,17 @@ QPushButton:hover{
     background-color:#ff0000;
 }
 """)
-
-        self._ball_1.setStyleSheet(f"""background-color:{splashColor["firstColor"]};border-radius:5px;""")
-        self._ball_2.setStyleSheet(f"""background-color:{splashColor["firstColor"]};border-radius:5px;""")
-        self._ball_3.setStyleSheet(f"""background-color:{splashColor["firstColor"]};border-radius:5px;""")
-
         self._label.setStyleSheet(f"""color:{splashColor["secondColor"]};border:0px;""")
+        self._label_2.setStyleSheet(f"""color:{splashColor["secondColor"]};border:0px;""")
+        self._label_3.setStyleSheet(f"""color:{splashColor["secondColor"]};border:0px;""")
+
+        self._progress.setStyleSheet("""
+QProgressBar{
+    border:0px ;
+    color: transparent;
+    background-color: """+ splashColor["secondColorSuperSlow"] + """;
+}
+QProgressBar::chunk{
+    background-color: """+splashColor["secondColor"]+""";
+}
+""")
