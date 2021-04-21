@@ -78,12 +78,12 @@ class WindowsBar(QFrame):
     def ConfiguresStyles(self,splashColor):
         self.setStyleSheet(f"""background-color:{splashColor["secondColor"]}""")
         
-        self._label.setStyleSheet(f"""color:{splashColor["firstColor"]}""")
+        self._label.setStyleSheet(f"""color:{splashColor["outherColor"]}""")
 
         self._closeButton.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["firstColor"]+""";
+    color: """+splashColor["outherColor"]+""";
     border:0px;
 }
 
@@ -95,7 +95,7 @@ QPushButton:hover{
         self._fullButton.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["firstColor"]+""";
+    color: """+splashColor["outherColor"]+""";
     border:0px;
 }
 
@@ -107,7 +107,7 @@ QPushButton:hover{
         self._minimizeButton.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["firstColor"]+""";
+    color: """+splashColor["outherColor"]+""";
     border:0px;
 }
 

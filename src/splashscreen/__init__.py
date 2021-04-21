@@ -1,50 +1,70 @@
+######################################
+
+######################################
+
+from os import error, path
 from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import QLabel, QMainWindow,QFrame, QProgressBar, QPushButton,QApplication
+from PyQt5.QtWidgets import QLabel, QMainWindow,QFrame, QMessageBox, QProgressBar, QPushButton,QApplication
 from PyQt5.QtCore import QPoint, Qt,QTimer
-import os,json,sys,pyautogui
+import os,json,sys,pyautogui,requests
 
 from src.configs.types import *
-from src.configs.files import Files
+from src.configs.files import Files, Path,DawnloadFiles
+from src.projects import OpenUiProjects
 
+#SplashScreen Da Ide
 class SplashScreen(QMainWindow):
     def __init__(self) -> void:
         super().__init__()
-        try:
-            os.mkdir("./Public")
-            os.mkdir("./Public/Editor")
-            os.mkdir("./Public/Editor/Themes")
-            os.mkdir("./Public/Editor/assets")
-            os.mkdir("./Public/Editor/language")
-            os.mkdir("./Public/data")
-            os.mkdir("./Public/json")
+        Path.create("./Public")
+        Path.create("./Public/Editor")
+        Path.create("./Public/Editor/Themes")
+        Path.create("./Public/Editor/assets")
+        Path.create("./Public/Editor/language")
+        # os.mkdir("./Public/data")
+        Path.create("./Public/json")
 
-        except FileExistsError:
-            print("not paths created")
-
-        Files.isPrymaryExecutation(self.CreateFiles)
+        self.CreateFiles()
+        # Files.isPrymaryExecutation(self.CreateFiles)
 
         self.jsonConfigs = json.loads(Files.Read(Package.jsonLocal+"/configs.json"))
-
-
+        
+        ######################################
+        # Executa os Objetos da SplashScreen #
+        ######################################
         self.Frames()
         self.Buttons()
         self.Labels()
         self.progressBar()
-        self.setConfigs() # Configurações da SplashScreen
-
+        self.setConfigs() 
         self.configuresStyles()
+        ######################################
 
     
+    # Criar os Arquivos
     def CreateFiles(self):
-        Files.Write(Package.jsonLocal+"/configs.json",json.dumps(Data.jsonConfigs,indent=4))
-        Files.Write(Package.editorThemeLocal+"/light.json",json.dumps(Data.jsonThemeLight,indent=4))
-        Files.Write(Package.editorThemeLocal+"/dark.json",json.dumps(Data.jsonThemeDark,indent=4))
 
+        if not Files.Exists(Package.jsonLocal+"/configs.json"):
+            Files.Write(Package.jsonLocal+"/configs.json",json.dumps(Data.jsonConfigs,indent=4))
+
+        if not Files.Exists(Package.editorThemeLocal+"/light.json"):
+            Files.Write(Package.editorThemeLocal+"/light.json",json.dumps(Data.jsonThemeLight,indent=4))
+        
+        if not Files.Exists(Package.editorThemeLocal+"/dark.json"):
+            Files.Write(Package.editorThemeLocal+"/dark.json",json.dumps(Data.jsonThemeDark,indent=4))
+
+
+        if not Files.Exists(Package.editorAssetsLocal+"/ConfigureIcon.png"):   
+            if DawnloadFiles(Package.apiURlImg+"/ConfigureIcon.png",Package.editorAssetsLocal+"/ConfigureIcon.png") == False:
+                print("N foi possivel o dawnload")
+                
+
+    #Frames da Tela
     def Frames(self) -> void:
         self._frame = QFrame(self)
         self._frame2 = QFrame(self)
 
-    
+    # Labels da Tela
     def Labels(self):
         font = QFont()
         font.setPointSize(40)
@@ -74,9 +94,13 @@ class SplashScreen(QMainWindow):
         self._label_3.setFont(font3)
         self._label_3.setGeometry(370,225,30,20)
 
+        
+
+    #Buttons da tela
     def Buttons(self) -> void:
         self._closeButton = QPushButton(self._frame2)
         
+    #Progress Bar
     def progressBar(self):
         self.v = 0
         font = QFont()
@@ -85,19 +109,25 @@ class SplashScreen(QMainWindow):
         self._progress.setGeometry(0,245,400,5)
         self._progress.setFont(font)
         self._progress.setValue(self.v)
-        self.timer2 = QTimer()
-        self.timer2.timeout.connect(self.updateProgressBar)
-        self.timer2.setInterval(40)
-        self.timer2.start()
-
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.updateProgressBar)
+        self.timer.setInterval(40)
+        self.timer.start()
+    
+    #Evento de Aumenta a valor progress bar
     def updateProgressBar(self):
         self._label_3.setText(str(self.v)+"%")
         if (self.v != 100):
             self.v += 1
             print(self.v)
-        else:pass
-        self._progress.setValue(self.v)
+            self._progress.setValue(self.v)
+        else:
+            #############################
+            # Abre a tela de projetos
+            #############################
+            OpenUiProjects(self)
 
+    # Configurações da SplashScreeen
     def setConfigs(self) -> void:
         # Configurações Da Tela # 
         self.setWindowFlags(Qt.FramelessWindowHint)
@@ -122,12 +152,14 @@ class SplashScreen(QMainWindow):
         self._closeButton.setFont(fontButton)
         self._closeButton.clicked.connect(lambda:self.close()+sys.exit())
 
+    # Movo a tela
     def MoveWindows(self):
         x,y = pyautogui.position()
         if (x <= 200):x=200
         if (y <= 15):y=15
         self.move(x-200,y-15)
 
+    # Stilos da Aplicação
     def configuresStyles(self):
         theme = self.jsonConfigs["theme"]
         splashColor = json.loads(Files.Read(Package.editorThemeLocal+"/"+theme+".json"))["SplashScreenColor"]
@@ -144,7 +176,7 @@ background-color:{splashColor["secondColor"]};
 
         self._closeButton.setStyleSheet("""
 QPushButton{
-    color:"""+splashColor["firstColor"]+";"+"""
+    color:"""+splashColor["outherColor"]+";"+"""
     border:0px;
 }
 QPushButton:hover{

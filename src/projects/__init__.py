@@ -56,3 +56,10 @@ class UiProjects(QWidget):
 
         self._windowsBar.ConfiguresStyles(splashColor)
         self._menuBar.ConfiguresStyles(splashColor)
+
+
+def OpenUiProjects(self):
+    ProjectsUi = UiProjects()
+    ProjectsUi.show()
+    self.timer.stop()
+    self.close()

@@ -1,6 +1,10 @@
 from PyQt5.QtWidgets import QFrame, QLabel, QPushButton
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont, QIcon, QPicture, QPixmap
+from PyQt5.QtCore import QSize, QTimer, Qt
+import json
+
+from src.configs.files import Files
+from src.configs.types import Package
 
 class MenuBar(QFrame):
     def __init__(self,parent):
@@ -8,54 +12,93 @@ class MenuBar(QFrame):
         self.parent:QFrame = parent
         self.Configures()
         self.ButtonsBar()
+        self.ConfigurationsButton()
 
         self._countMenu = False
+        self.geometryMenu = 50
+
+    # fazer as bordas
+
+        self.jsonConfigs = json.loads(Files.Read(Package.jsonLocal+"/configs.json"))
+        self.menuVelocity = self.jsonConfigs["menuVelocity"]
 
     def Configures(self):
-        self.setMaximumSize(55,9999)
-        self.setMinimumSize(55,self.height())
-    
+        self.setMaximumSize(50,9999)
+        self.setMinimumSize(50,9999)
+
+
     def ButtonsBar(self):
         self._menuButton = QPushButton(self)
         self._menuButton.setGeometry(0,0,250,50)
         self._menuButton.clicked.connect(self.AdjustButton)
 
+        self._barDifernt = QFrame(self._menuButton)
+        self._barDifernt.setGeometry(0,0,4,50)
+        self._barDifernt.close()
+
         self._bar1 = QFrame(self._menuButton)
-        self._bar1.setGeometry(10,5,5,40)
+        self._bar1.setGeometry(8,10,34,5)
         
         self._bar2 = QFrame(self._menuButton)
-        self._bar2.setGeometry(25,5,5,40)
+        self._bar2.setGeometry(8,23,34,5)
         
         self._bar3 = QFrame(self._menuButton)
-        self._bar3.setGeometry(40,5,5,40)
+        self._bar3.setGeometry(8,35,34,5)
 
         fontButton = QFont()
         fontButton.setFamily("Segoe Print")
-        fontButton.setPointSize(18)
+        fontButton.setPointSize(14)
+        fontButton.setBold(True)
 
         self._menuButtonLabel = QLabel(self._menuButton)
-        self._menuButtonLabel.setGeometry(0,0,250,50)
+        self._menuButtonLabel.setGeometry(0,0,220,50)
         self._menuButtonLabel.setText("Menu")
         self._menuButtonLabel.setAlignment(Qt.AlignCenter)
         self._menuButtonLabel.setFont(fontButton)
 
+    def ConfigurationsButton(self):
+        self._buttonConfig = QPushButton(self)
+        self._buttonConfig.setGeometry(0,50,250,50)
+        self._frameConfig = QPushButton(self._buttonConfig)
+        self._frameConfig.setIcon(QIcon(Package.editorAssetsLocal+"/"+"ConfigureIcon.png"))
+        self._frameConfig.setIconSize(QSize(45,45))
+        self._borderButton = QFrame(self._frameConfig)
+        self._borderButton.setGeometry(0,0,4,50)
+        self._borderButton.close()
+        self._frameConfig.setGeometry(0,0,50,50)
+    
+
     def AdjustButton(self):
+        self._timer = QTimer()
+        self._timer.setInterval(0)
+        self._timer.start()
         if self._countMenu == False:
-            self.setMaximumSize(250,9999)
-            self.setMinimumSize(250,self.height())
+            self._timer.timeout.connect(self.AddMenu)
             self._countMenu = True
         else:
-            self.setMaximumSize(55,9999)
-            self.setMinimumSize(55,self.height())
+            self._timer.timeout.connect(self.RemMenu)
             self._countMenu = False
+
+    def AddMenu(self):
+        if self.geometryMenu != 250:
+            self.geometryMenu += self.menuVelocity
+            self.setMaximumSize(self.geometryMenu,9999)
+            self.setMinimumSize(self.geometryMenu,9999)
+    
+    def RemMenu(self):
+        if self.geometryMenu != 50:
+            self.geometryMenu -= self.menuVelocity
+            self.setMaximumSize(self.geometryMenu,9999)
+            self.setMinimumSize(self.geometryMenu,9999)
 
     def ConfiguresStyles(self,splashColor):
         self.setStyleSheet(f"""background-color: {splashColor["secondColor"]};""")
-        self._bar1.setStyleSheet(f"""background-color: {splashColor["firstColor"]};""")
-        self._bar2.setStyleSheet(f"""background-color: {splashColor["firstColor"]};""")
-        self._bar3.setStyleSheet(f"""background-color: {splashColor["firstColor"]};""")
+        self._barDifernt.setStyleSheet(f"""background-color: {splashColor["thirdColor"]};""")
+        self._bar1.setStyleSheet(f"""background-color: {splashColor["outherColor"]};""")
+        self._bar2.setStyleSheet(f"""background-color: {splashColor["outherColor"]};""")
+        self._bar3.setStyleSheet(f"""background-color: {splashColor["outherColor"]};""")
 
-        self._menuButtonLabel.setStyleSheet(f"""background-color:transparent;color:{splashColor["firstColor"]};""")
+        self._menuButtonLabel.setStyleSheet(f"""background-color:transparent;color:{splashColor["outherColor"]};""")
 
         self._menuButton.setStyleSheet("""
 QPushButton{
@@ -68,3 +111,17 @@ QPushButton:hover{
     background-color:"""+splashColor["secondColorSlow"]+""";
 }
 """)
+
+        self._buttonConfig.setStyleSheet("""
+QPushButton{
+    background-color:transparent;
+    color: """+splashColor["firstColor"]+""";
+    border:0px;
+}
+
+QPushButton:hover{
+    background-color:"""+splashColor["secondColorSlow"]+""";
+}
+""")
+
+        self._borderButton.setStyleSheet(f"""background-color:{splashColor["thirdColor"]};""")
