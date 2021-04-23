@@ -16,13 +16,16 @@ class WindowsBar(QFrame):
         self.setMaximumSize(9999,30)
         self.setMinimumSize(9999,30)
 
-        self.mouseMoveEvent = lambda __:self.MoveWindows()
+        # self.mouseMoveEvent = lambda __:self.MoveWindows()
+        self.mouseMoveEvent = self.MoveWindows
         self.mouseDoubleClickEvent = lambda __:self.fullScreen()
 
-    def MoveWindows(self):
+    def MoveWindows(self,e):
+        x,y = pyautogui.position()
         x,y = pyautogui.position()
         if not self.parent.isFullScreen():
-            self.parent.move(x-self.parent.width()/2,y-5)
+            if e.buttons() == Qt.LeftButton:
+                self.parent.move(x-self.parent.width()/2,y-5)
 
     def Labels(self):
         fontLabel = QFont()
@@ -62,6 +65,9 @@ class WindowsBar(QFrame):
         if key.key() == Qt.Key_F11:
             self.fullScreen()
             
+
+    # verifica se um bug na hora de mover a tela
+
     def fullScreen(self):
         if not self.parent.isFullScreen():
             self.parent.showFullScreen()

@@ -8,7 +8,7 @@ def Main() -> None :
     App = QApplication([])
     SplashUi = SplashScreen()    
     SplashUi.show()
-    App.exec()
-
+    App.exec_()
+    
 if __name__ == "__main__":
     Main()

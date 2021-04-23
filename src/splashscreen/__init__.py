@@ -142,7 +142,8 @@ class SplashScreen(QMainWindow):
 
         # Configurações do Frameless Window
         self._frame2.setGeometry(int(0),int(0),int(400),int(30))
-        self._frame2.mouseMoveEvent = lambda __:self.MoveWindows()
+        # self._frame2.mouseMoveEvent = lambda __:self.MoveWindows()
+        self._frame2.mouseMoveEvent = self.MoveWindows
         self._closeButton.setGeometry(int(400-30),0,30,30)
         self._closeButton.setText("×")
         fontButton = QFont()
@@ -153,11 +154,14 @@ class SplashScreen(QMainWindow):
         self._closeButton.clicked.connect(lambda:self.close()+sys.exit())
 
     # Movo a tela
-    def MoveWindows(self):
+    def MoveWindows(self,e):
         x,y = pyautogui.position()
-        if (x <= 200):x=200
-        if (y <= 15):y=15
-        self.move(x-200,y-15)
+        self.clickPosition = QPoint(x,y)
+        if not self.isFullScreen():
+            if e.buttons() == Qt.LeftButton:
+                if (x <= 200):x=200
+                if (y <= 15):y=15
+                self.move(x-200,y-15)
 
     # Stilos da Aplicação
     def configuresStyles(self):

@@ -51,22 +51,28 @@ class MenuBar(QFrame):
         fontButton.setBold(True)
 
         self._menuButtonLabel = QLabel(self._menuButton)
-        self._menuButtonLabel.setGeometry(0,0,220,50)
+        self._menuButtonLabel.setGeometry(0,0,250,50)
         self._menuButtonLabel.setText("Menu")
         self._menuButtonLabel.setAlignment(Qt.AlignCenter)
         self._menuButtonLabel.setFont(fontButton)
 
     def ConfigurationsButton(self):
         self._buttonConfig = QPushButton(self)
-        self._buttonConfig.setGeometry(0,50,250,50)
+        # ageita e coloca o button no fundo
         self._frameConfig = QPushButton(self._buttonConfig)
         self._frameConfig.setIcon(QIcon(Package.editorAssetsLocal+"/"+"ConfigureIcon.png"))
-        self._frameConfig.setIconSize(QSize(45,45))
+        self._frameConfig.setIconSize(QSize(43,43))
         self._borderButton = QFrame(self._frameConfig)
         self._borderButton.setGeometry(0,0,4,50)
         self._borderButton.close()
         self._frameConfig.setGeometry(0,0,50,50)
-    
+        
+        self._timer2 = QTimer()
+        self._timer2.timeout.connect(self.moveButtonConfig)
+        self._timer2.setInterval(0)
+        self._timer2.start()
+
+    def moveButtonConfig(self):self._buttonConfig.setGeometry(0,self.parent.height() - 80,250,50)
 
     def AdjustButton(self):
         self._timer = QTimer()

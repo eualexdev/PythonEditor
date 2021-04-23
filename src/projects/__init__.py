@@ -37,7 +37,7 @@ class UiProjects(QWidget):
     def Div(self):
         self._div = QFrame()
         hbox = QHBoxLayout()
-        self._menuBar = MenuBar(self._div)
+        self._menuBar = MenuBar(self)
         l = QLabel()
         l.setText("Eai")
         hbox.setContentsMargins(0,0,0,0)
