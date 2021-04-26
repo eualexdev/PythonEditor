@@ -26,6 +26,8 @@ class Data:
         "SplashScreenColor":{
             "outherColor":"#fff",
             "firstColor":"#fff",
+            "secondColorSuperPlus":"#005f8b",
+            "secondColorPlus":"#0274a8",
             "secondColor":"#0282be",
             "secondColorSlow":"#0290d3",
             "secondColorSuperSlow":"#02afff",
@@ -37,6 +39,8 @@ class Data:
         "SplashScreenColor":{
             "outherColor":"#fff",
             "firstColor":"#11161d",
+            "secondColorSuperPlus":"#004666",
+            "secondColorPlus":"#025981",
             "secondColor":"#006b9c",
             "secondColorSlow":"#0079b1",
             "secondColorSuperSlow":"#01a9f7",

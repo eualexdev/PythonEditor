@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QFrame, QHBoxLayout, QLabel, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QFrame, QHBoxLayout, QLabel, QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtCore import Qt
 import json
 
@@ -36,15 +36,16 @@ class UiProjects(QWidget):
 
     def Div(self):
         self._div = QFrame()
-        hbox = QHBoxLayout()
         self._menuBar = MenuBar(self)
-        l = QLabel()
-        l.setText("Eai")
-        hbox.setContentsMargins(0,0,0,0)
-        hbox.addWidget(self._menuBar)
-        hbox.addWidget(l)
+        self.hbox = QHBoxLayout()
+        self._centralFrame = QMainWindow()
+        self._centralFrame.setContentsMargins(0,0,0,0)
+        self.hbox.setContentsMargins(0,0,0,0)
+        self.hbox.addWidget(self._menuBar)
+        self.hbox.addWidget(self._centralFrame)
+        self.hbox.setSpacing(0)
         # a label 
-        self._div.setLayout(hbox)
+        self._div.setLayout(self.hbox)
         self._vbox.addWidget(self._div)
 
     def ConfguresStyles(self):

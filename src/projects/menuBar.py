@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont, QIcon, QPicture, QPixmap
 from PyQt5.QtCore import QSize, QTimer, Qt
 import json
 
+from src.configurations import UiConfiguration
 from src.configs.files import Files
 from src.configs.types import Package
 
@@ -20,7 +21,8 @@ class MenuBar(QFrame):
     # fazer as bordas
 
         self.jsonConfigs = json.loads(Files.Read(Package.jsonLocal+"/configs.json"))
-        self.menuVelocity = self.jsonConfigs["menuVelocity"]
+        # self.menuVelocity = self.jsonConfigs["menuVelocity"]
+        self.menuVelocity = 4
 
     def Configures(self):
         self.setMaximumSize(50,9999)
@@ -58,19 +60,25 @@ class MenuBar(QFrame):
 
     def ConfigurationsButton(self):
         self._buttonConfig = QPushButton(self)
-        # ageita e coloca o button no fundo
         self._frameConfig = QPushButton(self._buttonConfig)
         self._frameConfig.setIcon(QIcon(Package.editorAssetsLocal+"/"+"ConfigureIcon.png"))
         self._frameConfig.setIconSize(QSize(43,43))
-        self._borderButton = QFrame(self._frameConfig)
+        self._borderButton = QPushButton(self._frameConfig)
         self._borderButton.setGeometry(0,0,4,50)
         self._borderButton.close()
         self._frameConfig.setGeometry(0,0,50,50)
-        
         self._timer2 = QTimer()
         self._timer2.timeout.connect(self.moveButtonConfig)
         self._timer2.setInterval(0)
         self._timer2.start()
+
+        self._frameConfig.clicked.connect(self.configureButtonFunction)
+        self._buttonConfig.clicked.connect(self.configureButtonFunction)
+
+
+    def configureButtonFunction(self):
+        self.parent._centralFrame.setCentralWidget(UiConfiguration(self.parent))
+        
 
     def moveButtonConfig(self):self._buttonConfig.setGeometry(0,self.parent.height() - 80,250,50)
 
@@ -86,12 +94,16 @@ class MenuBar(QFrame):
             self._countMenu = False
 
     def AddMenu(self):
+        if self.parent.isFullScreen():self.menuVelocity = 10
+        else:self.menuVelocity = 2
         if self.geometryMenu != 250:
             self.geometryMenu += self.menuVelocity
             self.setMaximumSize(self.geometryMenu,9999)
             self.setMinimumSize(self.geometryMenu,9999)
     
     def RemMenu(self):
+        if self.parent.isFullScreen():self.menuVelocity = 10
+        else:self.menuVelocity = 2
         if self.geometryMenu != 50:
             self.geometryMenu -= self.menuVelocity
             self.setMaximumSize(self.geometryMenu,9999)
@@ -130,4 +142,5 @@ QPushButton:hover{
 }
 """)
 
-        self._borderButton.setStyleSheet(f"""background-color:{splashColor["thirdColor"]};""")
+        self._frameConfig.setStyleSheet(f"""background-color:transparent;""")
+        self._borderButton.setStyleSheet(f"""background-color:transparent;""")
