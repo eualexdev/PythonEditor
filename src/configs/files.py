@@ -1,8 +1,6 @@
 import os
 from urllib.request import urlretrieve as DawnloadArq
 
-from src.configs.types import Package,void
-
 class Files():
     @staticmethod 
     def Create(filename):

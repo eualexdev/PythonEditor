@@ -1,1 +1,1 @@
-cd ../ && main.py
+cd ../ && main.py 

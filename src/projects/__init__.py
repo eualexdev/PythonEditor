@@ -4,14 +4,16 @@ import json
 
 from src.configs.files import Files
 from src.configs.types import Package
-from src.projects.windowBar import WindowsBar
 from src.projects.menuBar import MenuBar
+from src.projects.windowBar import WindowsBar
+from src.configs.funcs import ReadConfigs
+
 
 class UiProjects(QWidget):
     def __init__(self) -> None:
         super().__init__()
 
-        self.jsonConfigs = json.loads(Files.Read(Package.jsonLocal+"/configs.json"))
+        self.jsonConfigs = ReadConfigs()
         
 
         self.Configures()

@@ -1,10 +1,9 @@
 from PyQt5.QtWidgets import QFrame, QLabel, QPushButton
-from PyQt5.QtGui import QFont, QIcon, QPicture, QPixmap
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtCore import QSize, QTimer, Qt
-import json
 
 from src.configurations import UiConfiguration
-from src.configs.files import Files
+from src.configs.funcs import ReadConfigs
 from src.configs.types import Package
 
 class MenuBar(QFrame):
@@ -18,9 +17,7 @@ class MenuBar(QFrame):
         self._countMenu = False
         self.geometryMenu = 50
 
-    # fazer as bordas
-
-        self.jsonConfigs = json.loads(Files.Read(Package.jsonLocal+"/configs.json"))
+        self.jsonConfigs = ReadConfigs()
         # self.menuVelocity = self.jsonConfigs["menuVelocity"]
         self.menuVelocity = 4
 
@@ -78,7 +75,6 @@ class MenuBar(QFrame):
 
     def configureButtonFunction(self):
         self.parent._centralFrame.setCentralWidget(UiConfiguration(self.parent))
-        
 
     def moveButtonConfig(self):self._buttonConfig.setGeometry(0,self.parent.height() - 80,250,50)
 

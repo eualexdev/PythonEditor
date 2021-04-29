@@ -8,26 +8,27 @@ from PyQt5.QtWidgets import QLabel, QMainWindow,QFrame, QMessageBox, QProgressBa
 from PyQt5.QtCore import QPoint, Qt,QTimer
 import os,json,sys,pyautogui,requests
 
-from src.configs.types import *
+from src.configs.types import Package,Data
+from src.configs.funcs import ReadConfigs
 from src.configs.files import Files, Path,DawnloadFiles
+# from src.configs.langs import Languages
 from src.projects import OpenUiProjects
 
 #SplashScreen Da Ide
 class SplashScreen(QMainWindow):
-    def __init__(self) -> void:
+    def __init__(self) -> None:
         super().__init__()
         Path.create("./Public")
         Path.create("./Public/Editor")
         Path.create("./Public/Editor/Themes")
         Path.create("./Public/Editor/assets")
-        Path.create("./Public/Editor/language")
         # os.mkdir("./Public/data")
         Path.create("./Public/json")
 
         self.CreateFiles()
         # Files.isPrymaryExecutation(self.CreateFiles)
 
-        self.jsonConfigs = json.loads(Files.Read(Package.jsonLocal+"/configs.json"))
+        self.jsonConfigs = ReadConfigs()
         
         ######################################
         # Executa os Objetos da SplashScreen #
@@ -54,13 +55,16 @@ class SplashScreen(QMainWindow):
             Files.Write(Package.editorThemeLocal+"/dark.json",json.dumps(Data.jsonThemeDark,indent=4))
 
 
+        ##################################
+        # Dawnloads in Web
+        ##################################
         if not Files.Exists(Package.editorAssetsLocal+"/ConfigureIcon.png"):   
             if DawnloadFiles(Package.apiURlImg+"/ConfigureIcon.png",Package.editorAssetsLocal+"/ConfigureIcon.png") == False:
                 print("N foi possivel o dawnload")
                 
 
     #Frames da Tela
-    def Frames(self) -> void:
+    def Frames(self) -> None:
         self._frame = QFrame(self)
         self._frame2 = QFrame(self)
 
@@ -97,7 +101,7 @@ class SplashScreen(QMainWindow):
         
 
     #Buttons da tela
-    def Buttons(self) -> void:
+    def Buttons(self) -> None:
         self._closeButton = QPushButton(self._frame2)
         
     #Progress Bar
@@ -128,17 +132,17 @@ class SplashScreen(QMainWindow):
             OpenUiProjects(self)
 
     # Configurações da SplashScreeen
-    def setConfigs(self) -> void:
+    def setConfigs(self) -> None:
         # Configurações Da Tela # 
         self.setWindowFlags(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setMaximumSize(Int(400),Int(250))
-        self.setMinimumSize(Int(400),Int(250))
+        self.setMaximumSize(int(400),int(250))
+        self.setMinimumSize(int(400),int(250))
         self.move(QApplication.desktop().screen().rect().center() - self.rect().center())
         self.move(QPoint(self.x(),150))
 
         # Configurações Do Primeiro Frame
-        self._frame.setGeometry(Int(0),Int(0),Int(400),Int(250))
+        self._frame.setGeometry(int(0),int(0),int(400),int(250))
 
         # Configurações do Frameless Window
         self._frame2.setGeometry(int(0),int(0),int(400),int(30))

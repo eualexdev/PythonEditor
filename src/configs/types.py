@@ -1,25 +1,19 @@
-
-import json
-
-void = None
-String = str
-Int = int
-Float = float
-Boll = bool
-
 class Package:
     apiURlImg:str = "https://elegant-ide-api.netlify.app/img/"
     dataLocal:str = "./Public/data"
     jsonLocal:str = "./Public/json"
     editorThemeLocal:str = "./Public/Editor/Themes"
     editorAssetsLocal:str = "./Public/Editor/Assets"
+    editorLangsLocal:str = "./Public/Editor/Language"
+    
 class Data:
 
     jsonConfigs:dict = {
         "version":"1.0.0",
         "theme":"light",
         "animationDelay":200,
-        "menuVelocity":4
+        "menuVelocity":4,
+        "lang":"pt-br"
     }
 
     jsonThemeLight:dict = {
