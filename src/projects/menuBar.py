@@ -5,21 +5,26 @@ from PyQt5.QtCore import QSize, QTimer, Qt
 from src.configurations import UiConfiguration
 from src.configs.funcs import ReadConfigs
 from src.configs.types import Package
+from src.configs.langs import GetLang
+
+
 
 class MenuBar(QFrame):
     def __init__(self,parent):
         super().__init__()
         self.parent:QFrame = parent
-        self.Configures()
-        self.ButtonsBar()
-        self.ConfigurationsButton()
-
+        
         self._countMenu = False
         self.geometryMenu = 50
 
         self.jsonConfigs = ReadConfigs()
+        self.lang = GetLang()
         # self.menuVelocity = self.jsonConfigs["menuVelocity"]
         self.menuVelocity = 4
+
+        self.Configures()
+        self.ButtonsBar()
+        self.ConfigurationsButton()
 
     def Configures(self):
         self.setMaximumSize(50,9999)
@@ -59,11 +64,22 @@ class MenuBar(QFrame):
         self._buttonConfig = QPushButton(self)
         self._frameConfig = QPushButton(self._buttonConfig)
         self._frameConfig.setIcon(QIcon(Package.editorAssetsLocal+"/"+"ConfigureIcon.png"))
+        self._frameConfig.setGeometry(0,0,50,50)
         self._frameConfig.setIconSize(QSize(43,43))
         self._borderButton = QPushButton(self._frameConfig)
         self._borderButton.setGeometry(0,0,4,50)
         self._borderButton.close()
-        self._frameConfig.setGeometry(0,0,50,50)
+        self._buttonConfigText = QLabel(self._buttonConfig)
+        
+        text = self.lang["Menu"]["Menu"]["Configuration"]
+        font = QFont()
+        font.setPointSize(15)
+
+        self._buttonConfigText.setText(text)
+        self._buttonConfigText.setGeometry(0,0,250,50)
+        self._buttonConfigText.setFont(font)
+        self._buttonConfigText.setAlignment(Qt.AlignCenter)
+
         self._timer2 = QTimer()
         self._timer2.timeout.connect(self.moveButtonConfig)
         self._timer2.setInterval(0)
@@ -71,6 +87,7 @@ class MenuBar(QFrame):
 
         self._frameConfig.clicked.connect(self.configureButtonFunction)
         self._buttonConfig.clicked.connect(self.configureButtonFunction)
+
 
 
     def configureButtonFunction(self):
@@ -90,16 +107,16 @@ class MenuBar(QFrame):
             self._countMenu = False
 
     def AddMenu(self):
-        if self.parent.isFullScreen():self.menuVelocity = 10
-        else:self.menuVelocity = 2
+        if self.parent.isFullScreen():self.menuVelocity = 5
+        else:self.menuVelocity = 1
         if self.geometryMenu != 250:
             self.geometryMenu += self.menuVelocity
             self.setMaximumSize(self.geometryMenu,9999)
             self.setMinimumSize(self.geometryMenu,9999)
     
     def RemMenu(self):
-        if self.parent.isFullScreen():self.menuVelocity = 10
-        else:self.menuVelocity = 2
+        if self.parent.isFullScreen():self.menuVelocity = 5
+        else:self.menuVelocity = 1
         if self.geometryMenu != 50:
             self.geometryMenu -= self.menuVelocity
             self.setMaximumSize(self.geometryMenu,9999)
@@ -140,3 +157,4 @@ QPushButton:hover{
 
         self._frameConfig.setStyleSheet(f"""background-color:transparent;""")
         self._borderButton.setStyleSheet(f"""background-color:transparent;""")
+        self._buttonConfigText.setStyleSheet(f"""background-color:transparent;color: {splashColor["outherColor"]};""")

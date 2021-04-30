@@ -1,12 +1,13 @@
 from PyQt5.QtWidgets import QFrame, QLabel, QWidget,QPushButton
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QFont
-import json
+
+# Ageita o Menu que carrega animação mesmo já estano carregada
 
 from src.configs.files import Files
 from src.configs.types import Package
 from src.configs.funcs import ReadConfigs
-
+from src.configs.langs import GetLang
 
 class ConfigurationMenuBar(QFrame):
     def __init__(self,parent):
@@ -17,28 +18,26 @@ class ConfigurationMenuBar(QFrame):
         self.geometryMenuRevese = 0
 
         self.jsonConfigs = ReadConfigs()
-        self.fileLang = self.jsonConfigs["lang"]
+        self.lang = GetLang()
 
         # self.menuVelocity = self.jsonConfigs["menuVelocity"]
         self.menuVelocity = 2
-
         self.Configurations()
         self.MenuButtons()
-            
+
     def Configurations(self):
-        # self.move(0,0)
-        # self.setMaximumSize(250,9999)
-        # self.setMinimumSize(250,9999)
         self._timerMenu = QTimer()
         self._timerMenu.timeout.connect(self.ResizeMenu)
         self._timerMenu.setInterval(0)
         self._timerMenu.start()
 
     def ResizeMenu(self):
+        if self.parent.parent.isFullScreen():self.menuVelocity = 5
+        else:self.menuVelocity = 1
         if self.geometryMenuRevese <= 250:
             self.setMaximumSize(self.geometryMenuRevese,9999)
             self.setMinimumSize(self.geometryMenuRevese,9999)
-            self.geometryMenuRevese += 1
+            self.geometryMenuRevese += self.menuVelocity
 
 
     def MenuButtons(self):
@@ -46,7 +45,7 @@ class ConfigurationMenuBar(QFrame):
         self._menuButton.setGeometry(0,0,250,50)
         self._menuButton.clicked.connect(self.AdjustButton)
 
-        text = "Menu De Configurções"        # Ageita o desing
+        text = "   " + self.lang["Menu"]["Configs"]["ConfigureMenu"]
         leftTextFont = QFont()
         leftTextFont.setPointSize(12)
 
@@ -62,7 +61,7 @@ class ConfigurationMenuBar(QFrame):
         self._menuButtonText.setAlignment(Qt.AlignCenter)
         fontButton = QFont()
         fontButton.setFamily("GungsuhChe")
-        fontButton.setPointSize(20)
+        fontButton.setPointSize(22)
         self._menuButtonText.setFont(fontButton)
 
     def AdjustButton(self):
@@ -73,14 +72,20 @@ class ConfigurationMenuBar(QFrame):
 
 
     def zeroMenu(self):
-        # if self.parent.parent.isFullScreen():self.menuVelocity = 10
-        # else:self.menuVelocity = 2
+        global controls
+        if self.parent.parent.isFullScreen():self.menuVelocity = 5
+        else:self.menuVelocity = 1
         # ageita a velocidade do menu
         if self.geometryMenu > 0:
             self.setMaximumSize(self.geometryMenu,9999)
             self.setMinimumSize(self.geometryMenu,9999)
-            self.geometryMenu -= 1
-
+            if self.parent.parent.isFullScreen() and self.geometryMenu == self.menuVelocity:
+                self.geometryMenu -= self.menuVelocity
+                self.setMaximumSize(self.geometryMenu,9999)
+                self.setMinimumSize(self.geometryMenu,9999)
+            else:
+                self.geometryMenu -= self.menuVelocity
+            
     def ConfiguresStyles(self,splashColor):
         self.setStyleSheet(f"""background-color:{splashColor["secondColorPlus"]};""")
         self._menuButtonText.setStyleSheet(f"""background-color: transparent;color: {splashColor["outherColor"]}""")

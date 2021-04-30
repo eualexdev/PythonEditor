@@ -1,4 +1,3 @@
-from http.client import ImproperConnectionState
 from PyQt5.QtWidgets import QHBoxLayout, QLabel, QWidget
 import json
 
@@ -6,7 +5,6 @@ from src.configs.files import Files
 from src.configs.types import Package
 from src.configs.funcs import ReadConfigs
 from src.configurations.menuBar import ConfigurationMenuBar
-
 
 class UiConfiguration(QWidget):
     def __init__(self,parent:QWidget=None):
