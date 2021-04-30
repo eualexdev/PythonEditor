@@ -1,5 +1,6 @@
 // Install in C
 #include <stdio.h>
+#include <sys/types.h>
 
 #if defined(_WIN32) || defined(_WIN64) || defined(__CYGWIN__)
     #define PLATFORM "WINDOWS"
@@ -25,8 +26,16 @@ const char *GetPlatform() {
 
 int main(){
     const char *value = GetPlatform();
+    int valueINT;
     if (value != ""){
-        ExecuteOS();
+        valueINT = ExecuteOS();
+        if (valueINT == 1){
+            printf("Instaled");
+        } else if (valueINT == 2){
+            printf("has instaled");
+        } else {
+            printf("not instaled");
+        }
     } else {
         printf("not instaled");
     }

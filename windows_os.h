@@ -1,5 +1,6 @@
 #include <stdio.h>
+#include "path.h"
 
 int ExecuteOS(){
-    printf("Windows");
+    return CreatePath("./testCreated") ;   
 }
