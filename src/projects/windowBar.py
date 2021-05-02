@@ -1,7 +1,9 @@
 from PyQt5.QtWidgets import QFrame, QLabel, QPushButton, QWidget
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont,QKeyEvent
+from PyQt5.QtCore import QSize, Qt
+from PyQt5.QtGui import QFont, QIcon,QKeyEvent
 import pyautogui
+
+from src.configs.types import Package
 
 class WindowsBar(QFrame):
     def __init__(self, parent = None) -> None:
@@ -52,18 +54,21 @@ class WindowsBar(QFrame):
 
         self._fullButton = QPushButton(self)
         self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
+        self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Fullscreen.png"))
+        self._fullButton.setIconSize(QSize(15.5,15.5))
         self._fullButton.clicked.connect(self.fullScreen)
+        # ageita os icone fullscreen porque ta um pouco ruim
 
         self._minimizeButton = QPushButton(self)
         self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
         self._minimizeButton.setText("-")
-        fontButton.setPointSize(22)
+        fontButton.setPointSize(25)
         self._minimizeButton.setFont(fontButton)
         self._minimizeButton.clicked.connect(self.parent.showMinimized)
 
-    def keyPressEvent(self, key: QKeyEvent) -> None:
-        if key.key() == Qt.Key_F11:
-            self.fullScreen()
+    # def keyPressEvent(self, key: QKeyEvent) -> None:
+    #     if key.key() == Qt.Key_F11:
+    #         self.fullScreen()
             
 
     # verifica se um bug na hora de mover a tela
@@ -74,11 +79,16 @@ class WindowsBar(QFrame):
             self._closeButton.setGeometry(self.parent.width()-30,0,30,30)
             self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
             self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
+            self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Minimize.png"))
+            self._fullButton.setIconSize(QSize(17,17))
         else:
             self.parent.showNormal()
             self._closeButton.setGeometry(self.parent.width()-30,0,30,30)
             self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
             self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
+            self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Fullscreen.png"))
+            self._fullButton.setIconSize(QSize(15.5,15.5))
+
 
 
     def ConfiguresStyles(self,splashColor):

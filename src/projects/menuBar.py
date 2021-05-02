@@ -23,8 +23,12 @@ class MenuBar(QFrame):
         self.menuVelocity = 4
 
         self.Configures()
+        self.Buttons()
+
+    def Buttons(self):
         self.ButtonsBar()
         self.ConfigurationsButton()
+        self.CreateProjectsButton()
 
     def Configures(self):
         self.setMaximumSize(50,9999)
@@ -85,15 +89,18 @@ class MenuBar(QFrame):
         self._timer2.setInterval(0)
         self._timer2.start()
 
-        self._frameConfig.clicked.connect(self.configureButtonFunction)
-        self._buttonConfig.clicked.connect(self.configureButtonFunction)
-
-
-
-    def configureButtonFunction(self):
-        self.parent._centralFrame.setCentralWidget(UiConfiguration(self.parent))
+        self._frameConfig.clicked.connect(lambda: self.parent._centralFrame.setCentralWidget(UiConfiguration(self.parent)))
+        self._buttonConfig.clicked.connect(lambda: self.parent._centralFrame.setCentralWidget(UiConfiguration(self.parent))) 
 
     def moveButtonConfig(self):self._buttonConfig.setGeometry(0,self.parent.height() - 80,250,50)
+
+    def CreateProjectsButton(self):
+        self._buttonProjects = QPushButton(self)
+        self._buttonProjects.setGeometry(0,50,250,50)
+        self._frameButtonProjects = QPushButton(self._buttonProjects)
+        self._frameButtonProjects.setGeometry(0,0,50,50)
+        self._frameButtonProjects.setIcon(QIcon(Package.editorAssetsLocal+"/CreateProjects.png"))
+        self._frameButtonProjects.setIconSize(QSize(50,50))
 
     def AdjustButton(self):
         self._timer = QTimer()
@@ -158,3 +165,15 @@ QPushButton:hover{
         self._frameConfig.setStyleSheet(f"""background-color:transparent;""")
         self._borderButton.setStyleSheet(f"""background-color:transparent;""")
         self._buttonConfigText.setStyleSheet(f"""background-color:transparent;color: {splashColor["outherColor"]};""")
+
+        self._buttonProjects.setStyleSheet("""
+QPushButton{
+    background-color:transparent;
+    color: """+splashColor["firstColor"]+""";
+    border:0px;
+}
+
+QPushButton:hover{
+    background-color:"""+splashColor["secondColorSlow"]+""";
+}
+""")

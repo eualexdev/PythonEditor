@@ -58,8 +58,21 @@ class SplashScreen(QMainWindow):
         ##################################
         # Dawnloads in Web
         ##################################
+
+        if not Files.Exists(Package.editorAssetsLocal+"/Minimize.png"):   
+            if DawnloadFiles(Package.apiURlImg+"/Minimize.png",Package.editorAssetsLocal+"/Minimize.png") == False:
+                print("N foi possivel o dawnload")
+
+        if not Files.Exists(Package.editorAssetsLocal+"/Fullscreen.png"):   
+            if DawnloadFiles(Package.apiURlImg+"/Fullscreen.png",Package.editorAssetsLocal+"/Fullscreen.png") == False:
+                print("N foi possivel o dawnload")
+        
         if not Files.Exists(Package.editorAssetsLocal+"/ConfigureIcon.png"):   
             if DawnloadFiles(Package.apiURlImg+"/ConfigureIcon.png",Package.editorAssetsLocal+"/ConfigureIcon.png") == False:
+                print("N foi possivel o dawnload")
+                
+        if not Files.Exists(Package.editorAssetsLocal+"/CreateProjects.png"):   
+            if DawnloadFiles(Package.apiURlImg+"/CreateProjects.png",Package.editorAssetsLocal+"/CreateProjects.png") == False:
                 print("N foi possivel o dawnload")
                 
 

@@ -4,5 +4,6 @@ src/configurations/__pycache__/*
 src/projects/__pycache__/*
 src/splashscreen/__pycache__/*
 src/widgets/__pycache__/*
+core/__pycache__/*
 Public/*
 .vscode/*

@@ -1,4 +1,3 @@
-from PyQt5.QtGui import QRadialGradient
 from PyQt5.QtCore import QTimer
 
 def ExecuteFunctionsOfTime(*calback):
