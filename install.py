@@ -1,22 +1,8 @@
-# Instalador Elegant Ide
+from core.engine import getPlatform
+from core.windows import WindowsClass
 
-from core.engine import (
-    GetPlatform,
-    IsAdm
-)
-
-from core.platform import (
-    Windows,
-    Unix
-)
-
+platform_os = getPlatform()
 def Install():
-    """Coloca o a Ide no Path"""
-
-    adm = IsAdm()
-    platform = GetPlatform()
-
-    if platform == "windows":
-        Windows(adm)
-
-Install()
+    global platform_os
+    if platform_os == "win":
+        WindowsClass.Install()

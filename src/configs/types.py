@@ -6,6 +6,7 @@ class Package:
     editorAssetsLocal:str = "./Public/Editor/Assets"
     editorLangsLocal:str = "./Public/Editor/Language"
     
+
 class Data:
 
     jsonConfigs:dict = {

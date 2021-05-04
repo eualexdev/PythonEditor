@@ -1,22 +1,8 @@
-# functions of Elegant Ide
-# core.engine
+import sys,os
 
-import sys
-import os
-
-try:
-    import ctypes
-except : pass
-
-def Os_Error() -> None:pass
-
-def GetPlatform() -> None:
-    platform = sys.platform
-    if platform in {'linux', 'linux2', 'darwin'}:
+def getPlatform():
+    if sys.platform in {'linux', 'linux2', 'darwin'}:
         return "unix"
-    elif os.name == "nt" or os.environ.get('OS', '') != 'Windows_NT' or platform in {'win32', 'cygwin', 'msys'}:
-        return "windows"
+    elif os.name == "nt" or os.environ.get('OS', '') != 'Windows_NT' or sys.platform in {'win32', 'cygwin', 'msys'}:
+        return "win"
     return None
-
-def IsAdm() -> bool:
-    return ctypes.windll.shell32.IsUserAnAdmin() == 1
