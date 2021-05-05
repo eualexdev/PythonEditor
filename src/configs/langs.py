@@ -5,31 +5,35 @@ def GetLang():
     if lang in {"pt-br","en-es"}:
         if lang == "pt-br":
             return Languages.pt_br
-        elif lang == "en-es":
-            return Languages.en_es
+        elif lang == "en-eua":
+            return Languages.en_eua
     else:
-        return Languages.en_es
+        return Languages.en_eua
 
 class Languages:
     pt_br = {
         "type":"pt-br",
         "Menu":{
+            "MenuText":"Menu",
             "Configs":{
                 "ConfigureMenu":"Menu De Configurações"
             },
             "Menu":{
+                "CreateProjects":"Cria Projeto",
                 "Configuration":"Configurações"
             }
         }
     }
 
-    en_es = {
-        "type":"en-es",
+    en_eua = {
+        "type":"en-eua",
         "Menu":{
+            "MenuText":"Box Menu",
             "Configs":{
                 "ConfigureMenu":"Configuration Menu"
             },
             "Menu":{
+                "CreateProjects":"Create Project",
                 "Configuration":"Configuration"
             }
         }

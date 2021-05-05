@@ -85,7 +85,10 @@ class ConfigurationMenuBar(QFrame):
                 self.setMinimumSize(self.geometryMenu,9999)
             else:
                 self.geometryMenu -= self.menuVelocity
-            
+                self.setMaximumSize(self.geometryMenu,9999)
+                self.setMinimumSize(self.geometryMenu,9999)
+                print(self.geometryMenu)
+
     def ConfiguresStyles(self,splashColor):
         self.setStyleSheet(f"""background-color:{splashColor["secondColorPlus"]};""")
         self._menuButtonText.setStyleSheet(f"""background-color: transparent;color: {splashColor["outherColor"]}""")

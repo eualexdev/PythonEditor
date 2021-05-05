@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QFrame, QLabel, QPushButton, QWidget
 from PyQt5.QtCore import QSize, Qt
-from PyQt5.QtGui import QFont, QIcon,QKeyEvent
+from PyQt5.QtGui import QFont, QIcon
 import pyautogui
 
 from src.configs.types import Package
