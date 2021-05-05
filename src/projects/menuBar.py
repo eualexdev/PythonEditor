@@ -156,54 +156,54 @@ class MenuBar(QFrame):
             self.setMaximumSize(self.geometryMenu,9999)
             self.setMinimumSize(self.geometryMenu,9999)
 
-    def ConfiguresStyles(self,splashColor):
+    def ConfiguresStyles(self,Coloring):
         """coloca os estilos"""
-        self.setStyleSheet(f"""background-color: {splashColor["secondColor"]};""")
-        self._barDifernt.setStyleSheet(f"""background-color: {splashColor["thirdColor"]};""")
-        self._bar1.setStyleSheet(f"""background-color: {splashColor["outherColor"]};""")
-        self._bar2.setStyleSheet(f"""background-color: {splashColor["outherColor"]};""")
-        self._bar3.setStyleSheet(f"""background-color: {splashColor["outherColor"]};""")
+        self.setStyleSheet(f"""background-color: {Coloring["secondColor"]};""")
+        self._barDifernt.setStyleSheet(f"""background-color: {Coloring["thirdColor"]};""")
+        self._bar1.setStyleSheet(f"""background-color: {Coloring["outherColor"]};""")
+        self._bar2.setStyleSheet(f"""background-color: {Coloring["outherColor"]};""")
+        self._bar3.setStyleSheet(f"""background-color: {Coloring["outherColor"]};""")
 
-        self._menuButtonLabel.setStyleSheet(f"""background-color:transparent;color:{splashColor["outherColor"]};""")
+        self._menuButtonLabel.setStyleSheet(f"""background-color:transparent;color:{Coloring["outherColor"]};""")
 
         self._menuButton.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["firstColor"]+""";
+    color: """+Coloring["firstColor"]+""";
     border:0px;
 }
 
 QPushButton:hover{
-    background-color:"""+splashColor["secondColorSlow"]+""";
+    background-color:"""+Coloring["secondColorSlow"]+""";
 }
 """)
 
         self._buttonConfig.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["firstColor"]+""";
+    color: """+Coloring["firstColor"]+""";
     border:0px;
 }
 
 QPushButton:hover{
-    background-color:"""+splashColor["secondColorSlow"]+""";
+    background-color:"""+Coloring["secondColorSlow"]+""";
 }
 """)
 
         self._frameConfig.setStyleSheet(f"""background-color:transparent;""")
         self._borderButton.setStyleSheet(f"""background-color:transparent;""")
-        self._buttonConfigText.setStyleSheet(f"""background-color:transparent;color: {splashColor["outherColor"]};""")
+        self._buttonConfigText.setStyleSheet(f"""background-color:transparent;color: {Coloring["outherColor"]};""")
 
         self._buttonProjects.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["firstColor"]+""";
+    color: """+Coloring["firstColor"]+""";
     border:0px;
 }
 
 QPushButton:hover{
-    background-color:"""+splashColor["secondColorSlow"]+""";
+    background-color:"""+Coloring["secondColorSlow"]+""";
 }
 """)
 
-        self._buttonProjectsText.setStyleSheet(f"""background-color:transparent;color:{splashColor["outherColor"]};""")
+        self._buttonProjectsText.setStyleSheet(f"""background-color:transparent;color:{Coloring["outherColor"]};""")

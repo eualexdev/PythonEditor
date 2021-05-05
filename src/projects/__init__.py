@@ -52,13 +52,13 @@ class UiProjects(QWidget):
 
     def ConfguresStyles(self):
         theme = self.jsonConfigs["theme"]
-        splashColor = json.loads(Files.Read(Package.editorThemeLocal+"/"+theme+".json"))["SplashScreenColor"]
+        Coloring = json.loads(Files.Read(Package.editorThemeLocal+"/"+theme+".json"))["IdeColor"]
 
 
-        self._div.setStyleSheet(f"""background-color:{splashColor["firstColor"]};""")
+        self._div.setStyleSheet(f"""background-color:{Coloring["firstColor"]};""")
 
-        self._windowsBar.ConfiguresStyles(splashColor)
-        self._menuBar.ConfiguresStyles(splashColor)
+        self._windowsBar.ConfiguresStyles(Coloring)
+        self._menuBar.ConfiguresStyles(Coloring)
 
 
 def OpenUiProjects(self):

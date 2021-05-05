@@ -89,17 +89,17 @@ class ConfigurationMenuBar(QFrame):
                 self.setMinimumSize(self.geometryMenu,9999)
                 print(self.geometryMenu)
 
-    def ConfiguresStyles(self,splashColor):
-        self.setStyleSheet(f"""background-color:{splashColor["secondColorPlus"]};""")
-        self._menuButtonText.setStyleSheet(f"""background-color: transparent;color: {splashColor["outherColor"]}""")
+    def ConfiguresStyles(self,Coloring):
+        self.setStyleSheet(f"""background-color:{Coloring["secondColorPlus"]};""")
+        self._menuButtonText.setStyleSheet(f"""background-color: transparent;color: {Coloring["outherColor"]}""")
         self._menuButton.setStyleSheet("""
         QPushButton{
-            background-color: """+splashColor["secondColorPlus"]+""";
-            color: """+splashColor["firstColor"]+""";
+            background-color: """+Coloring["secondColorPlus"]+""";
+            color: """+Coloring["firstColor"]+""";
             border:0px;
         }
 
         QPushButton:hover{
-            background-color:"""+splashColor["secondColorSuperPlus"]+""";
+            background-color:"""+Coloring["secondColorSuperPlus"]+""";
         }""")
-        self._menuButtonLeftText.setStyleSheet(f"""background-color: transparent;color: {splashColor["outherColor"]}""")
+        self._menuButtonLeftText.setStyleSheet(f"""background-color: transparent;color: {Coloring["outherColor"]}""")

@@ -30,6 +30,6 @@ class UiConfiguration(QWidget):
 
     def ConfiguresStyles(self):
         theme = self.jsonConfigs["theme"]
-        splashColor = json.loads(Files.Read(Package.editorThemeLocal+"/"+theme+".json"))["SplashScreenColor"]
+        Coloring = json.loads(Files.Read(Package.editorThemeLocal+"/"+theme+".json"))["IdeColor"]
 
-        self.cmenuBar.ConfiguresStyles(splashColor)
+        self.cmenuBar.ConfiguresStyles(Coloring)

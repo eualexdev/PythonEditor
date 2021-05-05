@@ -183,21 +183,21 @@ class SplashScreen(QMainWindow):
     # Stilos da Aplicação
     def configuresStyles(self):
         theme = self.jsonConfigs["theme"]
-        splashColor = json.loads(Files.Read(Package.editorThemeLocal+"/"+theme+".json"))["SplashScreenColor"]
+        Coloring = json.loads(Files.Read(Package.editorThemeLocal+"/"+theme+".json"))["IdeColor"]
 
  
         self._frame.setStyleSheet(f"""
-background-color:{splashColor["firstColor"]};
-/*border:1px solid {splashColor["secondColor"]}; */       
+background-color:{Coloring["firstColor"]};
+/*border:1px solid {Coloring["secondColor"]}; */       
 """)   
 
         self._frame2.setStyleSheet(f"""
-background-color:{splashColor["secondColor"]};      
+background-color:{Coloring["secondColor"]};      
 """)
 
         self._closeButton.setStyleSheet("""
 QPushButton{
-    color:"""+splashColor["outherColor"]+";"+"""
+    color:"""+Coloring["outherColor"]+";"+"""
     border:0px;
 }
 QPushButton:hover{
@@ -205,17 +205,17 @@ QPushButton:hover{
     background-color:#ff0000;
 }
 """)
-        self._label.setStyleSheet(f"""color:{splashColor["secondColor"]};border:0px;""")
-        self._label_2.setStyleSheet(f"""color:{splashColor["secondColor"]};border:0px;""")
-        self._label_3.setStyleSheet(f"""color:{splashColor["secondColor"]};border:0px;""")
+        self._label.setStyleSheet(f"""color:{Coloring["secondColor"]};border:0px;""")
+        self._label_2.setStyleSheet(f"""color:{Coloring["secondColor"]};border:0px;""")
+        self._label_3.setStyleSheet(f"""color:{Coloring["secondColor"]};border:0px;""")
 
         self._progress.setStyleSheet("""
 QProgressBar{
     border:0px ;
     color: transparent;
-    background-color: """+ splashColor["secondColorSuperSlow"] + """;
+    background-color: """+ Coloring["secondColorSuperSlow"] + """;
 }
 QProgressBar::chunk{
-    background-color: """+splashColor["secondColor"]+""";
+    background-color: """+Coloring["secondColor"]+""";
 }
 """)

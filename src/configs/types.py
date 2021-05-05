@@ -18,7 +18,7 @@ class Data:
     }
 
     jsonThemeLight:dict = {
-        "SplashScreenColor":{
+        "IdeColor":{
             "outherColor":"#fff",
             "firstColor":"#fff",
             "secondColorSuperPlus":"#005f8b",
@@ -31,7 +31,7 @@ class Data:
     }
     
     jsonThemeDark:dict ={
-        "SplashScreenColor":{
+        "IdeColor":{
             "outherColor":"#fff",
             "firstColor":"#11161d",
             "secondColorSuperPlus":"#004666",

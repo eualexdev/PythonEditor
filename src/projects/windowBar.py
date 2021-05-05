@@ -91,15 +91,15 @@ class WindowsBar(QFrame):
 
 
 
-    def ConfiguresStyles(self,splashColor):
-        self.setStyleSheet(f"""background-color:{splashColor["secondColor"]}""")
+    def ConfiguresStyles(self,Coloring):
+        self.setStyleSheet(f"""background-color:{Coloring["secondColor"]}""")
         
-        self._label.setStyleSheet(f"""color:{splashColor["outherColor"]}""")
+        self._label.setStyleSheet(f"""color:{Coloring["outherColor"]}""")
 
         self._closeButton.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["outherColor"]+""";
+    color: """+Coloring["outherColor"]+""";
     border:0px;
 }
 
@@ -111,24 +111,24 @@ QPushButton:hover{
         self._fullButton.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["outherColor"]+""";
+    color: """+Coloring["outherColor"]+""";
     border:0px;
 }
 
 QPushButton:hover{
-    background-color:"""+splashColor["secondColorSlow"]+""";
+    background-color:"""+Coloring["secondColorSlow"]+""";
 }
 """)
 
         self._minimizeButton.setStyleSheet("""
 QPushButton{
     background-color:transparent;
-    color: """+splashColor["outherColor"]+""";
+    color: """+Coloring["outherColor"]+""";
     border:0px;
 }
 
 QPushButton:hover{
-    background-color:"""+splashColor["secondColorSlow"]+""";
+    background-color:"""+Coloring["secondColorSlow"]+""";
 }
 """)
 
