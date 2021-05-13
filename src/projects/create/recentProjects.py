@@ -15,7 +15,7 @@ class RecentProjects(QFrame):
 
     def nameIde(self):
         self._nameIde = QLabel(self)
-        self._nameIde.setText("    ElegantIDE 2021")
+        self._nameIde.setText("    Elegant IDE 2021")
 
         font = QFont()
         font.setFamily("Segoe Print")

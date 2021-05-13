@@ -74,6 +74,7 @@ class MenuBar(QFrame):
     def ConfigurationsButton(self):
         """Botão de configurações"""
         self._buttonConfig = QPushButton(self)
+        self._buttonConfig.setGeometry(0,self.parent.height() - 80,250,50)
         self._frameConfig = QPushButton(self._buttonConfig)
         self._frameConfig.setIcon(QIcon(Package.editorAssetsLocal+"/"+"ConfigureIcon.png"))
         self._frameConfig.setGeometry(0,0,50,50)
@@ -92,17 +93,19 @@ class MenuBar(QFrame):
         self._buttonConfigText.setFont(font)
         # self._buttonConfigText.setAlignment(Qt.AlignCenter)
 
-        self._timer2 = QTimer()
-        self._timer2.timeout.connect(self.moveButtonConfig)
-        self._timer2.setInterval(0)
-        self._timer2.start()
+
+        #Removi o sistema de move o botão de configuração para baixos
+        # self._timer2 = QTimer()
+        # self._timer2.timeout.connect(self.moveButtonConfig)
+        # self._timer2.setInterval(0)
+        # self._timer2.start()
 
         self._frameConfig.clicked.connect(lambda: self.parent._centralFrame.setCentralWidget(UiConfiguration(self.parent)))
         self._buttonConfig.clicked.connect(lambda: self.parent._centralFrame.setCentralWidget(UiConfiguration(self.parent))) 
 
-    def moveButtonConfig(self):
-        """Move o buttão de configuração"""
-        self._buttonConfig.setGeometry(0,self.parent.height() - 80,250,50)
+    # def moveButtonConfig(self):
+    #     """Move o buttão de configuração"""
+    #     self._buttonConfig.setGeometry(0,self.parent.height() - 80,250,50)
 
     def CreateProjectsButton(self):
         # "Botão de criar os projetos"

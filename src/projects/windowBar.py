@@ -20,7 +20,7 @@ class WindowsBar(QFrame):
 
         # self.mouseMoveEvent = lambda __:self.MoveWindows()
         self.mouseMoveEvent = self.MoveWindows
-        self.mouseDoubleClickEvent = lambda __:self.fullScreen()
+        # self.mouseDoubleClickEvent = lambda __:self.fullScreen()
 
     def MoveWindows(self,e):
         x,y = pyautogui.position()
@@ -52,15 +52,17 @@ class WindowsBar(QFrame):
         self._closeButton.setFont(fontButton)
         self._closeButton.clicked.connect(self.parent.close)
 
-        self._fullButton = QPushButton(self)
-        self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
-        self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Fullscreen.png"))
-        self._fullButton.setIconSize(QSize(15.5,15.5))
-        self._fullButton.clicked.connect(self.fullScreen)
-        # ageita os icone fullscreen porque ta um pouco ruim
+        # Removi o botão full screen
+
+        # self._fullButton = QPushButton(self)
+        # self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
+        # self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Fullscreen.png"))
+        # self._fullButton.setIconSize(QSize(15.5,15.5))
+        # self._fullButton.clicked.connect(self.fullScreen)
+        # # ageita os icone fullscreen porque ta um pouco ruim
 
         self._minimizeButton = QPushButton(self)
-        self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
+        self._minimizeButton.setGeometry(self.parent.width()-60,0,30,30)
         self._minimizeButton.setText("-")
         fontButton.setPointSize(25)
         self._minimizeButton.setFont(fontButton)
@@ -73,21 +75,21 @@ class WindowsBar(QFrame):
 
     # verifica se um bug na hora de mover a tela
 
-    def fullScreen(self):
-        if not self.parent.isFullScreen():
-            self.parent.showFullScreen()
-            self._closeButton.setGeometry(self.parent.width()-30,0,30,30)
-            self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
-            self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
-            self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Minimize.png"))
-            self._fullButton.setIconSize(QSize(17,17))
-        else:
-            self.parent.showNormal()
-            self._closeButton.setGeometry(self.parent.width()-30,0,30,30)
-            self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
-            self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
-            self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Fullscreen.png"))
-            self._fullButton.setIconSize(QSize(15.5,15.5))
+    # def fullScreen(self):
+    #     if not self.parent.isFullScreen():
+    #         self.parent.showFullScreen()
+    #         self._closeButton.setGeometry(self.parent.width()-30,0,30,30)
+    #         self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
+    #         self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
+    #         self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Minimize.png"))
+    #         self._fullButton.setIconSize(QSize(17,17))
+    #     else:
+    #         self.parent.showNormal()
+    #         self._closeButton.setGeometry(self.parent.width()-30,0,30,30)
+    #         self._fullButton.setGeometry(self.parent.width()-60,0,30,30)
+    #         self._minimizeButton.setGeometry(self.parent.width()-90,0,30,30)
+    #         self._fullButton.setIcon(QIcon(Package.editorAssetsLocal+"/Fullscreen.png"))
+    #         self._fullButton.setIconSize(QSize(15.5,15.5))
 
 
 
@@ -108,17 +110,17 @@ QPushButton:hover{
 }
 """)
 
-        self._fullButton.setStyleSheet("""
-QPushButton{
-    background-color:transparent;
-    color: """+Coloring["outherColor"]+""";
-    border:0px;
-}
+#         self._fullButton.setStyleSheet("""
+# QPushButton{
+#     background-color:transparent;
+#     color: """+Coloring["outherColor"]+""";
+#     border:0px;
+# }
 
-QPushButton:hover{
-    background-color:"""+Coloring["secondColorSlow"]+""";
-}
-""")
+# QPushButton:hover{
+#     background-color:"""+Coloring["secondColorSlow"]+""";
+# }
+# """)
 
         self._minimizeButton.setStyleSheet("""
 QPushButton{
