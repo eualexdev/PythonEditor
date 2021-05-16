@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QFrame, QHBoxLayout, QLabel
 import json
 
 from src.projects.create.recentProjects import RecentProjects
-
+from src.projects.create.baseProjects import BaseProjects
 from src.configs.files import Files
 from src.configs.types import Package
 from src.configs.funcs import ReadConfigs
@@ -39,7 +39,7 @@ class UICreateProject(QFrame):
 
     def SetWidgets(self):
         self._recentProjects = RecentProjects(self._sep1)
-        
+        self._baseProject = BaseProjects(self._sep2)
 
     def ConfiguresStyles(self):
         theme = self.jsonConfigs["theme"]
@@ -50,3 +50,4 @@ class UICreateProject(QFrame):
         self._sep2.setStyleSheet(f"""background-color:{Coloring["firstColor"]};""")
 
         self._recentProjects.ConfigureStyles(Coloring)
+        self._baseProject.ConfigureStyles(Coloring)

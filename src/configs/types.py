@@ -11,9 +11,17 @@ class Data:
 
     jsonConfigs:dict = {
         "version":"1.0.0",
+        "*themes":[
+            "light",
+            "dark",
+        ],
         "theme":"light",
         "animationDelay":200,
         "menuVelocity":4,
+        "*langs":[
+            "pt-br",
+            "en-eua"
+        ],
         "lang":"pt-br"
     }
 

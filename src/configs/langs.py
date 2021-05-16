@@ -16,7 +16,8 @@ class Languages:
         "Menu":{
             "MenuText":"Menu",
             "Configs":{
-                "ConfigureMenu":"Menu De Configurações"
+                "ConfigureMenu":"Menu De Configurações",
+                "ThemeButton":"Muda o Tema"
             },
             "Menu":{
                 "CreateProjects":"Cria Projeto",
@@ -30,7 +31,8 @@ class Languages:
         "Menu":{
             "MenuText":"Box Menu",
             "Configs":{
-                "ConfigureMenu":"Configuration Menu"
+                "ConfigureMenu":"Configuration Menu",
+                "ThemeButton":"Change the Theme"
             },
             "Menu":{
                 "CreateProjects":"Create Project",

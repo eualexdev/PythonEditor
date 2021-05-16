@@ -1,11 +1,9 @@
-from PyQt5.QtWidgets import QFrame, QLabel, QWidget,QPushButton
+from PyQt5.QtWidgets import QFrame, QHBoxLayout, QLabel, QScrollArea, QScrollBar, QWidget,QPushButton
 from PyQt5.QtCore import QTimer, Qt
 from PyQt5.QtGui import QFont
 
 # Ageita o Menu que carrega animação mesmo já estano carregada
-
-from src.configs.files import Files
-from src.configs.types import Package
+from src.configurations.chageTheme import ChangeTheme
 from src.configs.funcs import ReadConfigs
 from src.configs.langs import GetLang
 
@@ -20,8 +18,13 @@ class ConfigurationMenuBar(QFrame):
         self.jsonConfigs = ReadConfigs()
         self.lang = GetLang()
 
+        self._changeTheme = ChangeTheme()
         # self.menuVelocity = self.jsonConfigs["menuVelocity"]
         self.menuVelocity = 2
+
+        self.Widgets()
+
+    def Widgets(self):
         self.Configurations()
         self.MenuButtons()
 
@@ -64,6 +67,24 @@ class ConfigurationMenuBar(QFrame):
         fontButton.setPointSize(22)
         self._menuButtonText.setFont(fontButton)
 
+
+
+        self.ThemeButton()
+
+    def ThemeButton(self):
+        self._themeButton = QPushButton(self)
+        self._themeButton.setGeometry(0,50,250,50)
+        self._themeButtonText = QLabel(self._themeButton)
+        self._themeButtonText.setGeometry(0,0,250,50)
+
+        text = "   " + self.lang["Menu"]["Configs"]["ThemeButton"]
+        font = QFont()
+        font.setPointSize(12)
+
+        self._themeButtonText.setText(text)
+        self._themeButtonText.setFont(font)
+        self._themeButton.clicked.connect(self._changeTheme.show)
+
     def AdjustButton(self):
         self._timer = QTimer()
         self._timer.setInterval(0)
@@ -103,3 +124,16 @@ class ConfigurationMenuBar(QFrame):
             background-color:"""+Coloring["secondColorSuperPlus"]+""";
         }""")
         self._menuButtonLeftText.setStyleSheet(f"""background-color: transparent;color: {Coloring["outherColor"]}""")
+
+        self._themeButton.setStyleSheet("""
+        QPushButton{
+            background-color: """+Coloring["secondColorPlus"]+""";
+            color: """+Coloring["firstColor"]+""";
+            border:0px;
+        }
+
+        QPushButton:hover{
+            background-color:"""+Coloring["secondColorSuperPlus"]+""";
+        }""")
+
+        self._themeButtonText.setStyleSheet(f"""background-color: transparent;color: {Coloring["outherColor"]}""")

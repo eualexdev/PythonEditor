@@ -24,6 +24,7 @@ class SplashScreen(QMainWindow):
         Path.create("./Public/Editor/assets")
         # os.mkdir("./Public/data")
         Path.create("./Public/json")
+        Path.create("./Public/includes")
 
         self.CreateFiles()
         # Files.isPrymaryExecutation(self.CreateFiles)
@@ -95,7 +96,6 @@ class SplashScreen(QMainWindow):
         self._label.setFont(font)
         self._label.setAlignment(Qt.AlignCenter)
         self._label.setGeometry(1,70,398,80)
-        self._label.setStyleSheet("color:#fff")
 
         font.setFamily("Nirmala UI")
         font.setPointSize(8)
