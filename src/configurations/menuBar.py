@@ -23,7 +23,7 @@ class ConfigurationMenuBar(QFrame):
         self.menuVelocity = 2
 
         self.Widgets()
-
+        
     def Widgets(self):
         self.Configurations()
         self.MenuButtons()

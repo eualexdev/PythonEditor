@@ -50,6 +50,3 @@ class Data:
             "thirdColor":"#07265c"
         }
     }
-
-
-

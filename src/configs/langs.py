@@ -17,12 +17,16 @@ class Languages:
             "MenuText":"Menu",
             "Configs":{
                 "ConfigureMenu":"Menu De Configurações",
-                "ThemeButton":"Muda o Tema"
+                "ThemeButton":"Muda o Tema",
+                "SelectTheme":"Escolha um Tema"
             },
             "Menu":{
                 "CreateProjects":"Cria Projeto",
                 "Configuration":"Configurações"
             }
+        },
+        "Alerts":{
+            "Alert":"Alerta"
         }
     }
 
@@ -32,11 +36,15 @@ class Languages:
             "MenuText":"Box Menu",
             "Configs":{
                 "ConfigureMenu":"Configuration Menu",
-                "ThemeButton":"Change the Theme"
+                "ThemeButton":"Change the Theme",
+                "SelectTheme":"Select Theme"
             },
             "Menu":{
                 "CreateProjects":"Create Project",
                 "Configuration":"Configuration"
             }
+        },
+        "Alerts":{
+            "Alert":"Alert"
         }
     }
