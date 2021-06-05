@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+}
+
+#NavBar {
+    width: 100%;
+    height: 60px;
+    background-color: #005f8b;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#textNavBar {
+    color: #fff;
+    text-indent: 10px;
+    font-size: 30px;
+}
+
+#buttonNavBar {
+    background-color: #fff;
+    width: 60px;
+    height: 60px;
+    border: 0px;
+    outline: none;
+}
